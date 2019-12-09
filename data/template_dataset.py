@@ -7,16 +7,17 @@ You need to implement the following functions:
     <__getitem__>: Return a image and its corresponding lable.
     <__len__>: Return the size of the dataset.
 """
-
+import torch
+from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
-from PIL import Image
+
 
 class TemplateDataset(Dataset):
     def __init__(self, opt):
-    '''Initialize this dataset class.
+        '''Initialize this dataset class.
        We need to specific the path of the dataset and the domain label of each image.
-    '''
+        '''
         self.image_list = []
         self.label_list = []
         if opt.is_train:
@@ -31,7 +32,7 @@ class TemplateDataset(Dataset):
         self.num_data = len(self.image_list)
         
     def __getitem__(self, index):
-    '''Return a image and its corresponding lable.'''
+        '''Return a image and its corresponding label.'''
         img = Image.open(self.image_list[index]).convert('RGB')
         img = self.transform(img)
         label = torch.FloatTensor(self.label_list[index])
