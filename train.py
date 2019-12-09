@@ -1,8 +1,9 @@
 import time
-from options.train_options import TrainOptions
+
 from data.dataloader import CreateDataLoader
-from util.visualizer import Visualizer
 from models import create_model
+from options.train_options import TrainOptions
+from util.visualizer import Visualizer
 
 
 def main():
@@ -10,12 +11,12 @@ def main():
     data_loader = CreateDataLoader(opt)
     dataset_size = len(data_loader) * opt.batch_size
     visualizer = Visualizer(opt)
-    model = create_model(opt)    
+    model = create_model(opt)
     start_epoch = model.start_epoch
-    total_steps = start_epoch*dataset_size
+    total_steps = start_epoch * dataset_size
     for epoch in range(start_epoch+1, opt.niter+opt.niter_decay+1):
         epoch_start_time = time.time()
-        model.update_lr()
+
         save_result = True
         for i, data in enumerate(data_loader):
             iter_start_time = time.time()
@@ -32,13 +33,15 @@ def main():
                 t = (time.time() - iter_start_time) / opt.batch_size
                 visualizer.print_current_errors(epoch, epoch_iter, errors, t)
                 if opt.display_id > 0:
-                    visualizer.plot_current_errors(epoch, float(epoch_iter)/dataset_size, opt, errors)
-        print('epoch {} cost dime {}'.format(epoch,time.time()-epoch_start_time))
+                    visualizer.plot_current_errors(epoch, float(epoch_iter) / dataset_size, opt, errors)
+        print('epoch {} cost dime {}'.format(epoch, time.time() - epoch_start_time))
         model.save_ckpt(epoch)
         model.save_generator('latest')
         if epoch % opt.save_epoch_freq == 0:
             print('saving the generator at the end of epoch {}, iters {}'.format(epoch, total_steps))
             model.save_generator(epoch)
+
+        model.update_lr()
             
         
         
