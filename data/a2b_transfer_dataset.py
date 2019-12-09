@@ -8,7 +8,7 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 
 
-class ABDataset(Dataset):
+class A2BTransferDataset(Dataset):
     def __init__(self, opt):
         self.image_path = opt.dataroot
         self.is_train = opt.is_train

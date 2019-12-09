@@ -7,7 +7,7 @@ python ./train.py \
   --model_name a2b_transfer \
   --gpu ${GPU_ID} \
   --display_id ${DISPLAY_ID} \
-  --display_port 8033 \
+  --display_port 8097 \
   --save_epoch_freq 25 \
   --niter 100 \
   --niter_decay 100 \
@@ -17,7 +17,8 @@ python ./train.py \
   --n_style 8 \
   --batch_size 1 \
   --is_flip \
-  --use_dropout
+  --use_dropout \
+  --print_freq 20
 
 
 

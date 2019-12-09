@@ -5,7 +5,7 @@ from util.util import tensor2im
 
 
 ################## SeasonTransfer #############################
-class ABModel(BaseModel):
+class A2BTransferModel(BaseModel):
     def __init__(self, opt):
         BaseModel.__init__(self, opt)
 
